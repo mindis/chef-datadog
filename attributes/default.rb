@@ -45,7 +45,7 @@ default['datadog']['agent_version'] = nil
 # systems with a version of Python lower than 2.6) instead of datadog-agent
 begin
   pyversion = node['languages']['python']['version']
-  pyversion["+"] = ""
+  pyversion["+"] = "" if pyversion.include? "+"
   default['datadog']['install_base'] = Gem::Version.new(pyversion) < Gem::Version.new('2.6.0')
 rescue NoMethodError # nodes['languages']['python'] == nil
   Chef::Log.warn 'no version of python found'
